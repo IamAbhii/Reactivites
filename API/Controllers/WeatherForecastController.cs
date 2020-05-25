@@ -11,9 +11,9 @@ using Persistence;
 namespace API.Controllers {
   [ApiController]
   [Route ("[controller]")]
-  public class WeatherForecastController : ControllerBase {
+  public class ValueController : ControllerBase {
     private readonly DataContext _context;
-    public WeatherForecastController (DataContext context) {
+    public ValueController (DataContext context) {
       _context = context;
     }
  
