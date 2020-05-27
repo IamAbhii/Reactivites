@@ -1,0 +1,10 @@
+-How to connect front-end to back-end by implimaning cors policy at asp.net core server side in startup file.
+-learned CQRS (Command query responsbilty segregation) single database, read-write database, event store
+-dependancies should always point inwords of circle(uncle bob clean code) API->Application->Domain
+-MediatR pattern and library takes object-in->handler->object out. 
+    https://dotnetcoretutorials.com/2019/04/30/the-mediator-pattern-in-net-core-part-1-whats-a-mediator/
+
+-Cancellation token is when user abort the task it inform the server to stop working on that request.
+
+-In ApiController     //if we are not using ApiController attribute on top then we need to use the
+                    // [FromBody]Create.Command in method arguments to give hint to controler where to look.
