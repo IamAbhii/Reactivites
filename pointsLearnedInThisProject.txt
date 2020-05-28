@@ -8,3 +8,6 @@
 
 -In ApiController     //if we are not using ApiController attribute on top then we need to use the
                     // [FromBody]Create.Command in method arguments to give hint to controler where to look.
+
+-For class in javascript if we use for type check it will transpile in javascript in runtime.
+ but interface wont transpile in js so little performance benifit.
