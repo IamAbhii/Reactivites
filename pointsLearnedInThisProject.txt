@@ -11,3 +11,23 @@
 
 -For class in javascript if we use for type check it will transpile in javascript in runtime.
  but interface wont transpile in js so little performance benifit.
+
+-Mobx vs redux _In mob x you can mutate state _In Redux you can not.
+
+-Mobx structure -we define variable in observable and by attaching component to observer
+                component get re-render if variable changes.
+
+                -action is used to change varibles in observable.
+
+                -computed property used to do sume logic work of stateand which ever component using themselves
+                they will be auto re-render when action changes to observable and comuted function automatic detec those changes.
+                It wil start render the component who ever using them.
+
+                -Reaction, they observe the observable from stor itself and whenever the observable changes,
+                They will do the reaction regarding that. so it ttake two function.
+                (1st function will observe the property which assigned to it, and secont fucntion operated if that observable changes. 
+
+                -React creatContext is allowing any component to access the stored value or mobx store here any where in app.
+                so we store mobx in to create context and the with usecontext hook we can access them any where in whole application.
+
+                -Observer is higher order function to make any component observer of observable by wraping that component in observer(copmonent)
