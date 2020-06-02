@@ -31,3 +31,11 @@
                 so we store mobx in to create context and the with usecontext hook we can access them any where in whole application.
 
                 -Observer is higher order function to make any component observer of observable by wraping that component in observer(copmonent)
+
+-Challanges
+1)cors
+2)integrating mobx 
+3) create activity and edit activity using same form with router. used key to observe change props of key and
+    to replicate effect of componentWillUnmount by using use effect hooks.
+    -used fully uncontrolled key to observe change and created new instace of the component
+    -and checked performance imapact as well.
