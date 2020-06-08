@@ -9,6 +9,8 @@
 -In ApiController     //if we are not using ApiController attribute on top then we need to use the
                     // [FromBody]Create.Command in method arguments to give hint to controler where to look.
 
+-Async function return promise by default.
+
 -For class in javascript if we use for type check it will transpile in javascript in runtime.
  but interface wont transpile in js so little performance benifit.
 
@@ -32,6 +34,31 @@
 
                 -Observer is higher order function to make any component observer of observable by wraping that component in observer(copmonent)
 
+
+-Error Handling 
+    -API side
+        -Using data annotation Attributes
+        -Fluent Validation
+        -exceptions and error handling 
+    custome middleware for error handling.
+            1) [ApiController] allows error handled in it context. withut it we have to do ModelState.isValid method.
+               It also allows us to not use [FromBody] attribute in controller method.
+
+
+    -clinet side
+        -Axios interceptors
+        -trowing error from Axios.
+
+
+
+
+--Libraries used in this project
+    -Mobx library
+    -React Router
+    -Simantic UI React(UI library)
+    -React tostify(notification library)
+
+
 -Challanges
 1)cors
 2)integrating mobx 
@@ -39,3 +66,4 @@
     to replicate effect of componentWillUnmount by using use effect hooks.
     -used fully uncontrolled key to observe change and created new instace of the component
     -and checked performance imapact as well.
+
