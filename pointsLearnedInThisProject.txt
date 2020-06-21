@@ -57,6 +57,10 @@
     -React Router
     -Simantic UI React(UI library)
     -React tostify(notification library)
+    -React final form(form package)  
+    -React widgets(Date&Time picker)
+    -date-fns(morder javascript library for date functions)
+    -Revalidate(To revalidate data on client side by using library's functions)
 
 
 -Challanges
