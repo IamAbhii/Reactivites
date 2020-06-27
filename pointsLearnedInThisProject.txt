@@ -1,3 +1,5 @@
+Back-end
+
 -How to connect front-end to back-end by implimaning cors policy at asp.net core server side in startup file.
 -learned CQRS (Command query responsbilty segregation) single database, read-write database, event store
 -dependancies should always point inwords of circle(uncle bob clean code) API->Application->Domain
@@ -14,6 +16,14 @@
 -For class in javascript if we use for type check it will transpile in javascript in runtime.
  but interface wont transpile in js so little performance benifit.
 
+-Asp.Net Core Identity //https://jwt.io/introduction/
+    -PasswordHasher class in Identity uses Hasher PBKDF and 128 bit salt.
+
+-JWT tokens (JSON web Tokens)
+    JWT tokens server doesn't store any information regarding user. browser stores the token and server just checks token with it secret key
+    to verify the token. SO in this way you can run Same JWT tokens on mutltiple server comapare with same secret key to session Id where is doesent run on different server.
+
+Front-end
 -Mobx vs redux _In mob x you can mutate state _In Redux you can not.
 
 -Mobx structure -we define variable in observable and by attaching component to observer
@@ -21,7 +31,7 @@
 
                 -action is used to change varibles in observable.
 
-                -computed property used to do sume logic work of stateand which ever component using themselves
+                -computed property used to do some logic work of stateand which ever component using themselves
                 they will be auto re-render when action changes to observable and comuted function automatic detec those changes.
                 It wil start render the component who ever using them.
 
@@ -61,7 +71,7 @@
     -React widgets(Date&Time picker)
     -date-fns(morder javascript library for date functions)
     -Revalidate(To revalidate data on client side by using library's functions)
-
+    
 
 -Challanges
 1)cors
@@ -71,3 +81,27 @@
     -used fully uncontrolled key to observe change and created new instace of the component
     -and checked performance imapact as well.
 
+4)Used activity registry MAp() to check if the activity is loaded already if yes then for see detail not making another server request
+ request and using activity Registry to load that event.
+
+
+-Naming Convention
+    -NAming Convention //https://docs.microsoft.com/en-us/dotnet/standard/design-guidelines/naming-guidelines
+    -Persitstence (Data Access Layer) https://mapr.com/blog/is-dataware-the-new-persistence-layer-for-application-stacks/#:~:text=It's%20called%20persistent%20for%20a,occur%20at%20the%20persistence%20layer.
+    -Infrastructure //Other services Implemetations https://docs.microsoft.com/en-us/dotnet/architecture/modern-web-apps-azure/common-web-application-architectures
+
+-Perfomance Improvement
+    *Froontend side perfomance improvement
+    -Made less server calls by implimating client side Validation
+    -Made less server request calls 
+    -Used activity registry MAp() to check if the activity is loaded already if yes then for see detail not making another server request
+    request and using activity Registry to load that event.
+
+    *Sever side perfomance improvement
+    -Used Jwt Tokens to authorize user faster. no need to query our database.
+
+Scalabilty:
+    -By using Jwt tokens we can scale application to multiple servers by having same secret key on both the server.
+        No need to depend on session based same server to authenticate user.
+
+    -Made application with loosly coupled and good for testing by using dependancy injection.

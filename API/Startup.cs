@@ -1,3 +1,4 @@
+using System.Text;
 using System.Buffers;
 using Application.Activities;
 using MediatR;
@@ -10,6 +11,14 @@ using Microsoft.Extensions.Hosting;
 using Persistence;
 using FluentValidation.AspNetCore;
 using API.Middleware;
+using Domain;
+using Microsoft.AspNetCore.Identity;
+using Application.Interfaces;
+using Infrastructure.Security;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace API
 {
@@ -43,8 +52,35 @@ namespace API
 
       //Mediator service injection
       services.AddMediatR(typeof(List.Handler).Assembly);
-      services.AddControllers()
+      services.AddControllers(opt=>
+      {
+        var policy= new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+        opt.Filters.Add(new AuthorizeFilter(policy));
+      })
       .AddFluentValidation(cfg => cfg.RegisterValidatorsFromAssemblyContaining<Create>());
+
+      //Addint identity core to project with signin manager
+      var builder=services.AddIdentityCore<AppUser>();
+      var identityBuilder=new IdentityBuilder(builder.UserType,builder.Services);
+      identityBuilder.AddEntityFrameworkStores<DataContext>();
+      identityBuilder.AddSignInManager<SignInManager<AppUser>>();
+
+      services.AddScoped<IJWTGenerator,JwtGenerator>();
+      services.AddScoped<IUserAccessor,UserAccessor>();
+
+
+      var key=new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["TokenKey"]));
+      services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+      .AddJwtBearer(opt=> 
+      {
+          opt.TokenValidationParameters= new TokenValidationParameters
+          {
+            ValidateIssuerSigningKey=true,
+            IssuerSigningKey=key,
+            ValidateAudience=false,
+            ValidateIssuer=false,
+          };
+      });
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,10 +95,12 @@ namespace API
       }
 
       //app.UseHttpsRedirection();
-      app.UseCors("CorsPolicy");
+   
 
       app.UseRouting();
+      app.UseCors("CorsPolicy");
 
+      app.UseAuthentication();
       app.UseAuthorization();
 
       app.UseEndpoints(endpoints =>
