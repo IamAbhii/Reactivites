@@ -32,13 +32,16 @@ Front-end
                 -action is used to change varibles in observable.
 
                 -computed property used to do some logic work of stateand which ever component using themselves
-                they will be auto re-render when action changes to observable and comuted function automatic detec those changes.
+                they will be auto re-render when action changes to observable and comuted function automatic detect those changes.
                 It wil start render the component who ever using them.
 
                 -Reaction, they observe the observable from stor itself and whenever the observable changes,
-                They will do the reaction regarding that. so it ttake two function.
-                (1st function will observe the property which assigned to it, and secont fucntion operated if that observable changes. 
+                They will do the reaction regarding that. so it take two function.
+                (1st function will observe the property which assigned to it, and second fucntion operated if that observable changes. 
+                They runs after the store is initialized and after the each property changes.THey are used in constructor.
 
+                -Autorun(Reaction) runs every time when observable changes automaticlly in mobx store itself.
+                
                 -React creatContext is allowing any component to access the stored value or mobx store here any where in app.
                 so we store mobx in to create context and the with usecontext hook we can access them any where in whole application.
 
@@ -105,3 +108,6 @@ Scalabilty:
         No need to depend on session based same server to authenticate user.
 
     -Made application with loosly coupled and good for testing by using dependancy injection.
+
+Need to know more:
+-SyntheticEvent in react.
