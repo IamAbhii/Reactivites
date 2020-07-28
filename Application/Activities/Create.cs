@@ -6,6 +6,8 @@ using MediatR;
 using Persistence;
 using System.ComponentModel.DataAnnotations;
 using FluentValidation;
+using Application.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Activities
 {
@@ -39,9 +41,12 @@ namespace Application.Activities
     public class Handler : IRequestHandler<Command>
     {
       private readonly DataContext _context;
-      public Handler(DataContext context)
+      private readonly IUserAccessor _userAccessor;
+
+      public Handler(DataContext context,IUserAccessor userAccessor)
       {
         _context = context;
+        _userAccessor = userAccessor;
       }
 
       public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
@@ -59,6 +64,17 @@ namespace Application.Activities
 
         _context.Activities.Add(activity);
 
+        var user= await _context.Users.SingleOrDefaultAsync(x=>x.UserName==_userAccessor.GetCurrentUsername());
+
+        var attendee=new UserActivity
+        {
+          AppUser=user,
+          Activity=activity,
+          IsHost=true,
+          DateJoined=DateTime.Now
+        };
+
+        _context.UserActivities.Add(attendee);
         //here savechangesAsync retuns int, this int is number of changes saved in database so if its 0 then no changes is saved.
         var success = await _context.SaveChangesAsync() > 0;
 

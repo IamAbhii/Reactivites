@@ -111,3 +111,7 @@ Scalabilty:
 
 Need to know more:
 -SyntheticEvent in react.
+
+Eager loading and lazy loading
+
+-Custome authorization policy.

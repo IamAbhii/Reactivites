@@ -1,3 +1,4 @@
+using System.Reflection.Emit;
 using System.Text;
 using System.Buffers;
 using Application.Activities;
@@ -19,6 +20,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using AutoMapper;
 
 namespace API
 {
@@ -37,6 +39,7 @@ namespace API
       //adding datacotext to application
       services.AddDbContext<DataContext>(opt =>
       {
+        opt.UseLazyLoadingProxies();
         opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
       });
 
@@ -52,6 +55,7 @@ namespace API
 
       //Mediator service injection
       services.AddMediatR(typeof(List.Handler).Assembly);
+      services.AddAutoMapper(typeof(List.Handler));
       services.AddControllers(opt=>
       {
         var policy= new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
@@ -64,6 +68,17 @@ namespace API
       var identityBuilder=new IdentityBuilder(builder.UserType,builder.Services);
       identityBuilder.AddEntityFrameworkStores<DataContext>();
       identityBuilder.AddSignInManager<SignInManager<AppUser>>();
+
+      //Adding authorizttion custom policy for host can edit event
+      services.AddAuthorization(opt=>
+      {
+          opt.AddPolicy("IsActivityHost",policy=>
+          {
+            policy.Requirements.Add(new IsHostRequirement());
+          });
+      });
+
+      services.AddTransient<IAuthorizationHandler,IsHostRequirementHandler>();
 
       services.AddScoped<IJWTGenerator,JwtGenerator>();
       services.AddScoped<IUserAccessor,UserAccessor>();
