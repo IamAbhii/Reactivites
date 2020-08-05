@@ -18,7 +18,6 @@ axios.interceptors.request.use(
 );
 
 axios.interceptors.response.use(undefined, (error) => {
-  console.log(error.response);
   if (error.message === 'Network Error' && !error.response) {
     toast.error('Network error -make sure api is runnng!');
   }
@@ -66,6 +65,8 @@ const Activities = {
   update: (activity: IActivity) =>
     request.put(`/activities/${activity.id}`, activity),
   delete: (id: string) => request.del(`/activities/${id}`),
+  attend:(id:string)=>request.post(`/activities/${id}/attend`,{}),
+  unattend:(id:string)=>request.del(`/activities/${id}/attend`)
 };
 
 const User = {

@@ -74,6 +74,7 @@ Front-end
     -React widgets(Date&Time picker)
     -date-fns(morder javascript library for date functions)
     -Revalidate(To revalidate data on client side by using library's functions)
+    -Automapper
     
 
 -Challanges
@@ -113,5 +114,5 @@ Need to know more:
 -SyntheticEvent in react.
 
 Eager loading and lazy loading
-
+-DTo
 -Custome authorization policy.

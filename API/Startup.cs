@@ -55,7 +55,9 @@ namespace API
 
       //Mediator service injection
       services.AddMediatR(typeof(List.Handler).Assembly);
+      //Automapper
       services.AddAutoMapper(typeof(List.Handler));
+
       services.AddControllers(opt=>
       {
         var policy= new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
@@ -80,6 +82,7 @@ namespace API
 
       services.AddTransient<IAuthorizationHandler,IsHostRequirementHandler>();
 
+      //Adding scope for the interfaces to class
       services.AddScoped<IJWTGenerator,JwtGenerator>();
       services.AddScoped<IUserAccessor,UserAccessor>();
 
